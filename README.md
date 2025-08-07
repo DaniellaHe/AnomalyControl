@@ -52,10 +52,13 @@ Our framework consists of three modules to enhance controllability in anomaly sy
    Utilizes a decoupled cross-attention mechanism to inject semantic priors into the diffusion model, enabling **flexible** and **generalized** anomaly generation.
 
 # 🛠️ Data Preprocess
+🚧 **Coming soon...**
 
 # 🚀 Run
+🚧 **Coming soon...**
 
 # ✋ Inference
+🚧 **Coming soon...**
 
 # License
 MIT License
