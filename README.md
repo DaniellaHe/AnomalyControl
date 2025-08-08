@@ -63,13 +63,52 @@ conda activate AnomalyControl
 
 ### (2) Data preprocess
 
-🚧 **Coming soon...**
+Example: MVTec AD dataset
+1. Download the MVTec AD dataset from the [official website](https://www.mvtec.com/company/research/datasets/mvtec-ad).
+2. Place the dataset in the following directory structure:
+```
+├── data
+    ├── mvtec_ad
+        └── MVTEC_AD
+              ├── bottle
+              ├── cable
+              ├── ...
+              └── zipper
+```
+3. Navigate to the preprocessing script folder and run:
+```
+cd prepare_data/prepare_data_mvtec
+sh prepare_data_mvtec.sh
+```
+This will automatically process the raw dataset and generate the required format for training and evaluation.
 
-## 🚀 Run
-🚧 **Coming soon...**
+## 🚀 Training
+Run the following command to start training:
+
+```bash
+accelerate launch --num_processes 1 --mixed_precision "fp16" train_anoctrl.py \
+    --dataset <dataset_name> \
+    --pretrained_model_name_or_path pretrained_model/stable-diffusion-inpainting/ \
+    --pretrained_sg_adapter_path pretrained_model/models/ip-adapter_sd15.bin \
+    --image_encoder_path pretrained_model/models/image_encoder
+```
+
+Where `<dataset_name>` can be one of:
+- `mvtec_ad`
+- `mpdd`
+- `visa`
 
 ## ✋ Inference
-🚧 **Coming soon...**
+Run the following command to perform inference:
+
+```bash
+python inference_fast.py --dataset <dataset_name>
+```
+
+Where `<dataset_name>` can be one of:
+- `mvtec_ad`
+- `mpdd`
+- `visa`
 
 ## License
 MIT License
