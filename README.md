@@ -34,7 +34,7 @@
 <strong>Generalization:</strong> The text-image reference can exhibit a different material surface compared with the targeted text prompt (<em>e.g.</em>, the right examples).
 </p>
 
-# 🙂 Overview
+## 🙂 Overview
 <div  align="center">    
  <img src="./assets/imgs/fig2_overview.jpg" width = 1000  align=center />
 </div>
@@ -51,19 +51,30 @@ Our framework consists of three modules to enhance controllability in anomaly sy
 3. 🧩 **SGA (Semantic Guided Adapter)**  
    Utilizes a decoupled cross-attention mechanism to inject semantic priors into the diffusion model, enabling **flexible** and **generalized** anomaly generation.
 
-# 🛠️ Data Preprocess
+## 🛠️ Data Preprocess
+### (1) Prepare the envirenment
+```
+python 3.9
+cuda==11.6
+gcc==8.3.0
+conda env create -f environment.yaml
+conda activate AnomalyControl
+```
+
+### (2) Data preprocess
+
 🚧 **Coming soon...**
 
-# 🚀 Run
+## 🚀 Run
 🚧 **Coming soon...**
 
-# ✋ Inference
+## ✋ Inference
 🚧 **Coming soon...**
 
-# License
+## License
 MIT License
 
-# Citation
+## Citation
 If you find our work useful in your research, please consider citing: 
 ```
 @article{he2024anomalycontrol,
@@ -74,5 +85,5 @@ If you find our work useful in your research, please consider citing:
 }
 ```
 
-# Acknowledgement
-Thanks to the following excellent works: [IP-Adapter](https://github.com/tencent-ailab/IP-Adapter), [AnomalyDiffusion](https://github.com/sjtuplayer/anomalydiffusion).
+## Acknowledgement
+Thanks to the following excellent works: [IP-Adapter](https://github.com/tencent-ailab/IP-Adapter), [AnomalyDiffusion](https://github.com/sjtuplayer/anomalydiffusion), [MVTec-Caption](https://github.com/hujiecpp/MVTec-Caption), [LAVIS](https://github.com/salesforce/LAVIS).
