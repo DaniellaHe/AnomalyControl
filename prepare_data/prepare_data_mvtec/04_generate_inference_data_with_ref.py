@@ -1,16 +1,16 @@
-# 使用 ano_data_dict_train.json + inference_dict_data_146000.json 生成. inference_data_dict.json（一共71100）
+# Generate `inference_data_dict.json` (total 71100) from `ano_data_dict_train.json` + `inference_dict_data_146000.json`
 
 # pill/train/good/208.png                                   ori_image
 # pill/contamination/mask/369.jpg                           ori_generated_mask
-# "image_file": "pill/test/color/021.png",                  ref_image_file
-# "text": "The pill has a red contamination.",              ref_text
-# "mask_file": "pill/ground_truth/color/021_mask.png",      ref_mask_file
+# "image_file": "pill/test/color/021.png",                   ref_image_file
+# "text": "The pill has a red contamination.",               ref_text
+# "mask_file": "pill/ground_truth/color/021_mask.png",       ref_mask_file
 
 import json
 import os
 import random
 
-# 设置随机种子
+# Set random seed
 random.seed(42)
 
 def read_json(fpath):
@@ -19,14 +19,14 @@ def read_json(fpath):
     return obj
 
 def shuffle_and_get_top_1000(input_list):
-    # 创建列表副本
+    # Create a copy of the list
     list_copy = input_list.copy()
 
-    # 打乱列表副本
+    # Shuffle the list copy
     random.shuffle(list_copy)
 
     if len(list_copy) > 1000:
-        # 取前1000个元素
+        # Take the first 1000 elements
         top_1000_elements = list_copy[:1000]
     else:
         top_1000_elements = list_copy
@@ -44,7 +44,6 @@ inference_data_146000 = "../../data/mvtec_ad/inference_dict_data_146000.json"
 ano_data_train_dict = read_json(ano_data_train)
 inference_data_146000_dict = read_json(inference_data_146000)
 
-
 ori_ref = []
 ori_ref_dict = {}
 categories = ano_data_train_dict.keys()
@@ -58,31 +57,20 @@ for category in categories:
 
         ori_ref_dict[category][broken_type] = []
 
-        ref_images_masks= ano_data_train_type[broken_type]
+        ref_images_masks = ano_data_train_type[broken_type]
         ori_images_masks = inference_data_type[broken_type]
 
         ori_ref_tmp = []
 
-        # for ref in ref_images_masks:
-        #     for ori in ori_images_masks:
-        #         entry = {
-        #             "ori_image": ori["ori_image"],
-        #             "ori_generated_mask": ori["ori_generated_mask"],
-        #             "ref_image_file": ref["image_file"],
-        #             "ref_text": ref["text"],
-        #             "ref_mask_file": ref["mask_file"],
-        #         }
-        #         ori_ref_tmp.append(entry)
-
-        # 确保ref和ori的异常类型一致时才组合
+        # Ensure ref and ori have the same anomaly type before combining
         for ref in ref_images_masks:
-            # 从ref文件名提取真实异常类型（如"poke"）
+            # Extract the actual anomaly type from the ref filename (e.g., "poke")
             ref_type = ref["mask_file"].split('/')[-2].replace('_mask', '')
 
-            # 只选择同类型的ori数据
+            # Select only ori data with the same type
             matching_ori = [
                 ori for ori in ori_images_masks
-                if ref_type in ori["ori_generated_mask"]  # 检查路径是否包含类型关键字
+                if ref_type in ori["ori_generated_mask"]  # Check if the path contains the type keyword
             ]
 
             for ori in matching_ori:
@@ -90,7 +78,7 @@ for category in categories:
                     "ori_image": ori["ori_image"],
                     "ori_generated_mask": ori["ori_generated_mask"],
                     "ref_image_file": ref["image_file"],
-                    "ref_text": ref["text"].replace(ref_type, broken_type),  # 修正文本描述
+                    "ref_text": ref["text"].replace(ref_type, broken_type),  # Adjust the text description
                     "ref_mask_file": ref["mask_file"],
                 }
                 ori_ref_tmp.append(entry)
@@ -112,9 +100,9 @@ ori_ref_dict_file = os.path.join(output_folder, 'inference_data_dict.json')
 with open(ori_ref_file, 'w') as f:
     json.dump(ori_ref, f, indent=4)
 
-print(f"推理数据已生成并保存到 {ori_ref_file}")
+print(f"Inference data has been generated and saved to {ori_ref_file}")
 
 with open(ori_ref_dict_file, 'w') as f:
     json.dump(ori_ref_dict, f, indent=4)
 
-print(f"推理数据已生成并保存到 {ori_ref_dict_file}")
+print(f"Inference data has been generated and saved to {ori_ref_dict_file}")
