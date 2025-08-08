@@ -82,6 +82,9 @@ sh prepare_data_mvtec.sh
 ```
 This will automatically process the raw dataset and generate the required format for training and evaluation.
 
+### (3) pretrained model
+🚧 **Coming soon...** 
+
 ## 🚀 Training
 Run the following command to start training:
 
