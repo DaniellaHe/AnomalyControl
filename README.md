@@ -34,7 +34,7 @@
 <strong>Generalization:</strong> The text-image reference can exhibit a different material surface compared with the targeted text prompt (<em>e.g.</em>, the right examples).
 </p>
 
-## 🙂 Overview
+## 😊 Overview
 <div  align="center">    
  <img src="./assets/imgs/fig2_overview.jpg" width = 1000  align=center />
 </div>
